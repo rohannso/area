@@ -1,0 +1,24 @@
+create database Pract_5;
+
+USE Pract_5;
+create table areas(
+ radius int primary key,
+ area decimal(10,2));
+
+DELIMITER $
+CREATE PROCEDURE AREA_CALCULATION()
+    BEGIN
+    DECLARE v_radius int default 5;
+    DECLARE v_area decimal(10,2);
+    DECLARE v_pi decimal(10,2) default 3.14;
+    while v_radius<=9 do
+    set v_area = v_pi*v_radius*v_radius;
+    insert into areas values(v_radius,v_area);
+    set v_radius = v_radius+1;
+    end while;
+    end;
+    $
+delimiter ;
+
+call area_calculation;
+SELECT * FROM areas;
